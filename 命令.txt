@@ -1,0 +1,56 @@
+PHP读取PDF内容配合Xpdf的使用
+下载：xpdfbin-linux-3.04.tar.gz
+转中文，需要：xpdf-chinese-simplified.tar.gz
+
+将文件ftp拖动到服务器
+
+[root@localhost xpdf]# tar -zxvf xpdfbin-linux-3.04.tar.gz
+[root@localhost xpdf]# cd xpdfbin-linux-3.04
+[root@localhost xpdfbin-linux-3.04]# cat INSTALL
+[root@localhost xpdfbin-linux-3.04]# cd bin64/
+[root@localhost bin64]# cp ./* /usr/local/bin/
+[root@localhost bin64]# cd ../doc/
+[root@localhost doc]# mkdir -p /usr/local/man/man1
+[root@localhost doc]# mkdir -p /usr/local/man/man5
+[root@localhost doc]# cp *.1 /usr/local/man/man1
+[root@localhost doc]# cp *.5 /usr/local/man/man5
+
+如果不需要读取中文的话，到这里就可以结束了，如果需要，那我们继续往后 
+
+[root@localhost doc]# cp sample-xpdfrc /usr/local/etc/xpdfrc
+
+[root@localhost xpdf]# tar -zxvf xpdf-chinese-simplified.tar.gz
+[root@localhost xpdf]# cd xpdf-chinese-simplified
+[root@localhost xpdf]# mkdir -p /usr/local/share/xpdf/chinese-simplified
+
+然后将xpdf-chinese-simplified里面的全部内容复制到/usr/local/share/xpdf/chinese-simplified
+
+把chinese-simplified里面文件add-to-xpdfrc 的内容复制到/usr/local/etc/xpdfrc文件中。记得里面的路径要正确。（注意，这里面的简体中文包包括以下三种格式：ISO-2022-CN，EUC-CN，GBK ，看清楚哦，不支持UTF-8，可以先转为GBK，然后进行转义） 
+
+功能实现
+至此，所有的配置完毕，我们要开始使用它了。
+如果是简单的PDF读取，那么直接用下面的语句就OK了。
+header("Content-Type: text/html;charset=utf-8");
+$content = shell_exec('/usr/local/bin/pdftotext '.$filename.' -');
+如果需要转中文，如此这般，加上参数。
+$content = shell_exec('/usr/local/bin/pdftotext -layout -enc GBK '.$filename.' -');
+当然，加了参数之后依然是不影响英文的转换的，所以，放心使用吧。需要注意的是，这里转出来的是GBK编码的哦，现在网站很多用的是UTF-8，想要不显示乱码的话，需要再次转义一下哦。
+$content = mb_convert_encoding($content, 'UTF-8','GBK');
+至此，就大功告成了。读取出来的内容，你想如何使用，再写代码处理吧。
+最后加一下pdftotext 的参数说明给大家。 
+
+
+
+
+
+
+
+
+PHP+TXT读取文本内容并输出
+https://zhidao.baidu.com/question/617947171114975652.html
+
+PHP逐行读取Text文本文件
+http://www.mamicode.com/info-detail-66637.html
+
+PHP读取文件内容的五种方式
+http://www.jb51.net/article/77067.htm
