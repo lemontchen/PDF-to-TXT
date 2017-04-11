@@ -1,12 +1,18 @@
 <?php
+
 /**
- * <!-- 禁用右键: --> 
+ * 禁用右键:
 <script> 
+
 function stop(){ return false; } 
+
 document.oncontextmenu=stop; 
+
 </script> 
 
+
 把这个方法在页面head 里面就可以了
+
  */
 
 
@@ -18,6 +24,7 @@ document.oncontextmenu=stop;
  * 可以执行   unlink ( 'test.html' );来删除
  * 另外删除目录用函数：rmdir()；用法与unlink ()相同
  */
+ 
 //unlink ( 'ts.txt' );
 
 
@@ -26,11 +33,13 @@ document.oncontextmenu=stop;
 /**
  * 假设需要删除一个名叫"upload"目录下的所有文件（但无需删除目录文件夹）
  */
+ 
 //delFileUnderDir( 'upload');
 
 /**
  * 仅删除指定目录下的文件，不删除目录文件夹
  */
+ 
 function delFileUnderDir( $dirName )
 {
     if ( $handle = opendir( "$dirName" ) ) {
@@ -54,6 +63,7 @@ function delFileUnderDir( $dirName )
  * 删除目录及目录下的所有文件
  * 循环删除目录和文件函数
  */
+ 
 function delDirAndFile( $dirName )
 {
     if ( $handle = opendir( "$dirName" ) ) {
@@ -79,13 +89,17 @@ function delDirAndFile( $dirName )
  * 获取本文件目录的文件夹地址$hostdir
  * 获取也就是扫描文件夹内的文件及文件夹名存入数组 $filesnames
  */
-/* $hostdir=dirname(__FILE__);
+/* 
+
+$hostdir=dirname(__FILE__);
 $filesnames = scandir($hostdir);
 foreach ($filesnames as $name) {
     $url="http://www.****.com//".$name;
     $aurl= "<a href=\"".$url."\">".$url."</a>";
     echo $aurl . "<br/>";
-}  */
+}  
+
+*/
 
 
 
@@ -94,14 +108,18 @@ foreach ($filesnames as $name) {
  * 打开一个目录,并继续阅读其内容
  * @var unknown
  */
-/* $dir = "D:/phpStudy/WWW/qx/";
+/* 
+
+$dir = "D:/phpStudy/WWW/qx/";
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {
         while (($file = readdir($dh)) !== false) {
             echo "filename: $file : filetype: " . filetype($dir . $file) . "\n";
         } closedir($dh);
     }
-} */
+} 
+
+*/
 
 
 /**
@@ -109,6 +127,8 @@ if (is_dir($dir)) {
  * @param unknown $path
  * @param unknown $data
  */
+ 
+ 
 function searchDir($path,&$data){
     if(is_dir($path)){
         $dp=dir($path);
@@ -124,16 +144,20 @@ function searchDir($path,&$data){
     }
 }
 
+
 function getDir($dir){
     $data=array();
     searchDir($dir,$data);
     return   $data;
 }
 
+
 //print_r(getDir('.'));
 
 
-/* if(!function_exists('read_pdf')) {
+/* 
+
+if(!function_exists('read_pdf')) {
     function read_pdf($file) {
         if(strtolower(substr(strrchr($file,'.'),1)) != 'pdf') {
             echo '文件格式不对.';
@@ -148,20 +172,28 @@ function getDir($dir){
         readfile($file);
     }
 }
-read_pdf('Java.pdf'); */
+read_pdf('Java.pdf');
 
-/* $fp = fopen("Java.pdf", "r");
+*/
+
+/*
+
+$fp = fopen("Java.pdf", "r");
 
 header("Content-type: application/pdf");
 
 fpassthru($fp);
 
-fclose($fp); */
+fclose($fp); 
+
+*/
 
 //echo getPageTotal('py43.pdf');
 /**
  * 获取PDF的页数
  */
+ 
+ 
 function getPageTotal($path){
     // 打开文件
     if (!$fp = @fopen($path,"r")) {
@@ -188,6 +220,7 @@ function getPageTotal($path){
 /**
  * pdf转txt
  */
+ 
 header("Content-Type: text/html;charset=utf-8");
 
 if (empty($page)) {
@@ -200,6 +233,8 @@ if (isset($_GET['page']) == TRUE) {
 /**
  * 计算中文字符串长度
  */
+ 
+ 
 function utf8_strlen($string = null) {
     // 将字符串分解为单元
     preg_match_all("/./us", $string, $match);
@@ -214,6 +249,8 @@ function utf8_strlen($string = null) {
  * @param $len 总长度
  * @return string
  */
+ 
+ 
 function msubstr($str, $start, $len) {
     $strlength = $start + $len;
     $tmpstr = "";
@@ -231,6 +268,7 @@ function msubstr($str, $start, $len) {
     }
     return $tmpstr;
 }
+
 
 if($page){
     $filename = 'p5pc.pdf';
@@ -258,16 +296,21 @@ if($page){
     echo $page.'/';
     echo $page_count.'页';
 }
+
+
 /**************************************分隔线***PDF转txt******end******************************************************/
 
 
 /**************************************分隔线***txt********start****************************************************/
+
+
 if (empty($page)) {
     $page=1;
 }
 if (isset($_GET['page']) == TRUE) {
     $page = $_GET['page']; 
 }
+
 
 if($page) {
     $content = file_get_contents("example.txt"); //读取txt文件内容
