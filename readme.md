@@ -536,17 +536,17 @@ if($page) {
     
     if($page != 1) {
     
-        echo "<a href=newfile.php?page=".($page-1).">上一页</a> ";
+        echo "<a href=demo.php?page=".($page-1).">上一页</a> ";
         
     }
     
     if($page < $page_count) {
     
-        echo "<a href=newfile.php?page=".($page+1).">下一页</a> ";
+        echo "<a href=demo.php?page=".($page+1).">下一页</a> ";
         
     }
     
-    echo "<a href=demo.newfile?page=".$page_count.">尾页</a>";
+    echo "<a href=demo.php?page=".$page_count.">尾页</a>";
     
     
     echo $page.'/';
